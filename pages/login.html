@@ -1,0 +1,57 @@
+<div class="d-flex content justify-content-center align-items-center">
+  <form>
+    <md-card class="md-layout-item card">
+
+      <md-card-header>
+        <div class="card-head d-flex align-items-center">
+          <div class="container text-center">
+            <div class="row">
+              <h4 class="col">Login</h4>
+            </div>
+          </div>
+        </div>
+      </md-card-header>
+
+
+      <md-card-content>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <md-field :class="getValidationClass('email')">
+                <label for="first-name">Email</label>
+                <md-input name="email" id="email" autocomplete="email-login" v-model.trim="$v.form.email.$model" :disabled="sending"/>
+                <span class="md-error" v-if="!$v.form.email.required && $v.form.email.$invalid">Email field is required</span>
+                <span class="md-error" v-if="!$v.form.email.email && $v.form.email.$invalid">Email field has incorrect format</span>
+              </md-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <md-field :class="getValidationClass('password')">
+                <label for="first-name">Password</label>
+                <md-input type="password" name="password" id="password" autocomplete="password-login" v-model="form.password" :disabled="sending"/>
+                <span class="md-error" v-if="!$v.form.password.required">The first name is required</span>
+                <span class="md-error" v-else-if="!$v.form.password.minlength">Invalid first name</span>
+              </md-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="container" v-if="error">
+          <div class="row">
+            <div class="col text-danger text-center">
+              {{error}}
+            </div>
+          </div>
+        </div>
+      </md-card-content>
+
+      <md-card-actions class="d-flex p-2 justify-content-between">
+        <md-button :disabled="sending" v-on:click="() => $router.replace({ path: '/registration' })" class="ml-3 nav-btns">Register</md-button>
+        <md-button :disabled="sending" class="mr-3 nav-btns" v-on:click="getLogin()">Login</md-button>
+      </md-card-actions>
+
+    </md-card>
+  </form>
+
+</div>
